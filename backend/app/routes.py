@@ -14,6 +14,7 @@ def generate():
     data = request.json
     exercises = generate_exercises(
         data.get('theme', 'Matemática'),
+        data.get('subject', 'Assunto central'),
         data.get('level', 'Ensino Médio'),
         data.get('question_type', 'Múltipla Escolha'),
         data.get('difficulty', 'Médio'),

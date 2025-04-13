@@ -15,7 +15,7 @@ class GeminiService:
             print(f"Erro ao configurar Gemini: {e}")
             self.available = False
 
-    def generate_exercises(self, tema, nivel, tipo_questao, dificuldade, quantidade):
+    def generate_exercises(self, tema, assunto, nivel, tipo_questao, dificuldade, quantidade):
         if not self.available:
             return self._fallback_response("Serviço Gemini não disponível")
 
@@ -24,6 +24,7 @@ class GeminiService:
     Gere exatamente {quantidade} questões com as seguintes características:
     
     - Tema: {tema}
+    - Assunto: {assunto}
     - Nível: {nivel}
     - Tipo: {tipo_questao}
     - Dificuldade: {dificuldade}

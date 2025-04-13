@@ -18,6 +18,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const formData = {
       theme: document.getElementById("theme").value,
+      subject: document.getElementById("subject").value,
       level: document.getElementById("level").value,
       question_type: document.getElementById("question_type").value,
       difficulty: document.getElementById("difficulty").value,
