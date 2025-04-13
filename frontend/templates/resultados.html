@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="results-page">
+    <h1>Resultados Gerados</h1>
+    <div id="exercisesList" class="exercises-list">
+        <!-- Exercícios serão inseridos aqui via JavaScript -->
+    </div>
+    <button onclick="window.location.href='/'" class="back-btn">Voltar</button>
+</div>
+
+<script src="/static/js/results.js"></script>
+{% endblock %}

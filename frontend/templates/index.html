@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="generator-container">
+    <h1>Gerador de Exercícios Personalizados</h1>
+
+    <div class="form-container">
+        <form id="exerciseForm">
+            <div class="form-group">
+                <label for="theme">Tema:</label>
+                <input type="text" id="theme" required placeholder="Ex: Matemática, História">
+            </div>
+
+            <div class="form-group">
+                <label for="level">Nível:</label>
+                <select id="level" required>
+                    <option value="">Selecione...</option>
+                    <option value="Fundamental">Fundamental</option>
+                    <option value="Médio">Médio</option>
+                    <option value="Superior">Superior</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="question_type">Tipo de Questão:</label>
+                <select id="question_type" required>
+                    <option value="">Selecione...</option>
+                    <option value="Múltipla Escolha">Múltipla escolha</option>
+                    <option value="Dissertativa">Dissertativa</option>
+                    <option value="Verdadeiro/Falso">Verdadeiro/Falso</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="difficulty">Dificuldade:</label>
+                <select id="difficulty" required>
+                    <option value="">Selecione...</option>
+                    <option value="Fácil">Fácil</option>
+                    <option value="Médio">Médio</option>
+                    <option value="Difícil">Difícil</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="quantity">Quantidade:</label>
+                <input type="number" id="quantity" min="1" max="20" value="5" required>
+            </div>
+
+            <button type="submit" class="generate-btn">Gerar Exercícios</button>
+        </form>
+    </div>
+
+    <div id="loading" class="loading" style="display: none;">
+        <div class="spinner"></div>
+        <p>Gerando exercícios...</p>
+    </div>
+
+    <div id="results" class="results-container"></div>
+</div>
+
+<script src="/static/js/main.js"></script>
+{% endblock %}
