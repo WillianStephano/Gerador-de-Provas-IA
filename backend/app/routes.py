@@ -1,7 +1,7 @@
 from flask import Blueprint, request, jsonify, render_template, Response
 from .ai_service import generate_exercises  # Note o ponto
 from flask import send_file
-from .pdf_generator import generate_pdf
+from .pdf_generator import generate_pdf, generate_pdf_questions
 
 bp = Blueprint('routes', __name__)
 
@@ -37,6 +37,30 @@ def generate_pdf_route():
             return jsonify({"error": "Nenhum exercício fornecido"}), 400
 
         pdf_buffer = generate_pdf(exercises)
+        
+        return Response(
+            pdf_buffer,
+            mimetype='application/pdf',
+            headers={
+                "Content-Disposition": "attachment; filename=prova_gerada.pdf",
+                "Content-Type": "application/pdf"
+            }
+        )
+    except Exception as e:
+        print(f"Erro ao gerar PDF: {str(e)}")
+        return jsonify({"error": str(e)}), 500
+    
+    
+@bp.route('/generate-pdf-questions', methods=['POST'])
+def generate_questions_only_pdf():
+    try:
+        data = request.get_json()
+        exercises = data.get('exercises', [])
+        
+        if not exercises:
+            return jsonify({"error": "Nenhum exercício fornecido"}), 400
+
+        pdf_buffer = generate_pdf_questions(exercises)
         
         return Response(
             pdf_buffer,

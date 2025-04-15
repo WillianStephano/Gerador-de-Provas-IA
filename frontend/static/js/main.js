@@ -9,6 +9,9 @@ document.addEventListener("DOMContentLoaded", () => {
     if (event.target.id === "downloadPdf") {
       downloadPDF(currentExercises);
     }
+    if (event.target.id === "downloadPdfQuestions") {
+      downloadPDFQuestions(currentExercises);
+    }
   });
 
   form.addEventListener("submit", async (e) => {
@@ -69,7 +72,10 @@ document.addEventListener("DOMContentLoaded", () => {
               )
               .join("")}
             <button id="downloadPdf" class="pdf-button">
-                📥 Baixar Prova em PDF
+                📥 Baixar Prova Completa em PDF
+            </button>
+            <button id="downloadPdfQuestions" class="pdf-button">
+                📥 Baixar Apenas Questoes em PDF
             </button>
         `;
   }
@@ -77,6 +83,29 @@ document.addEventListener("DOMContentLoaded", () => {
   async function downloadPDF(exercises) {
     try {
       const response = await fetch("/generate-pdf", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ exercises }),
+      });
+
+      if (!response.ok) throw new Error(await response.text());
+
+      const blob = await response.blob();
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = `prova_${new Date().toISOString().slice(0, 10)}.pdf`;
+      a.click();
+      setTimeout(() => URL.revokeObjectURL(url), 100);
+    } catch (error) {
+      console.error("Falha no PDF:", error);
+      alert("Erro ao gerar PDF:\n" + error.message);
+    }
+  }
+
+  async function downloadPDFQuestions(exercises) {
+    try {
+      const response = await fetch("/generate-pdf-questions", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ exercises }),
